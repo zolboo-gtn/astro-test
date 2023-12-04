@@ -13,6 +13,6 @@ export default defineConfig({
     },
   },
   integrations: [tailwind(), react()],
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
 });
