@@ -1,7 +1,7 @@
 import type { APIContext } from "astro";
 import { defineMiddleware } from "astro:middleware";
 
-const AUTH_ROUTES: (string | RegExp)[] = ["/login"];
+const AUTH_ROUTES: (string | RegExp)[] = ["/login", "/api/login"];
 const authRoutesGuard = (context: APIContext) => {
   const { pathname } = context.url;
   const isAuthRoute = AUTH_ROUTES.some((route) => {
