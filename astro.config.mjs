@@ -14,5 +14,5 @@ export default defineConfig({
   },
   integrations: [tailwind(), react()],
   output: "server",
-  adapter: vercel({ edgeMiddleware: false }),
+  adapter: vercel({ edgeMiddleware: true }),
 });
