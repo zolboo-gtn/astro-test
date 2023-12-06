@@ -10,7 +10,12 @@ export default defineConfig({
     defaultLocale: "mn",
     locales: ["en", "ja", "mn"],
   },
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind({
+      applyBaseStyles: false,
+    }),
+    react(),
+  ],
   output: "server",
   adapter: vercel({ edgeMiddleware: false }),
 });

@@ -12,7 +12,7 @@ export type LoginApiError = {
 };
 export const POST: APIRoute = async ({ cookies, redirect, request }) => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const data = await request.formData();
     const validation = safeParse(LoginSchema, Object.fromEntries(data));
@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ cookies, redirect, request }) => {
       secure: true,
     });
 
-    return new Response(null, { status: 200 });
+    return redirect("/", 307);
   } catch (error) {
     return new Response(
       JSON.stringify({

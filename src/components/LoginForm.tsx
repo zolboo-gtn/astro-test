@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 
 import type { LoginApiError } from "@/pages/api/login";
+import { Button } from "@/ui/button";
 
 type Props = {
   redirectTo: string | null;
@@ -34,7 +35,7 @@ export const LoginForm: React.FC<Props> = ({ redirectTo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} data-astro-reload>
       <label htmlFor="email">
         Email:
         <input
@@ -57,7 +58,7 @@ export const LoginForm: React.FC<Props> = ({ redirectTo }) => {
         />
       </label>
       {apiErrors.password && <p>{apiErrors.password}</p>}
-      <button>{isPending ? "Logging in" : "Login"}</button>
+      <Button type="submit">{isPending ? "Logging in" : "Login"}</Button>
       {apiErrors.api && <p>{apiErrors.api}</p>}
     </form>
   );

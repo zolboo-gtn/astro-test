@@ -2,14 +2,16 @@
 import { safeParse } from "valibot";
 
 import { LoginForm } from "@/components/LoginForm";
+import AuthLayout from "@/layouts/AuthLayout.astro";
 import type { LoginApiError } from "@/pages/api/login";
 import { LoginSchema } from "@/schemas/login";
+import { Button } from "@/ui/button";
 
 const redirectTo = Astro.url.searchParams.get("redirectTo");
 const errors: Partial<LoginApiError> = {};
 if (Astro.request.method === "POST") {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const data = await Astro.request.formData();
     const validation = safeParse(LoginSchema, Object.fromEntries(data));
@@ -41,21 +43,24 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<h1>Login</h1>
-<h2>Server form</h2>
-<form method="POST">
-  <label>
-    Email:
-    <input type="email" name="email" value="test@email.com" />
-  </label>
-  {errors.email && <p>{errors.email}</p>}
-  <label>
-    Password:
-    <input type="password" name="password" value="password" />
-  </label>
-  {errors.password && <p>{errors.password}</p>}
-  <button>Login</button>
-  {errors.api && <p>{errors.api}</p>}
-</form>
-<h2>Client form</h2>
-<LoginForm redirectTo={redirectTo} client:load />
+<AuthLayout title="Home page">
+  <h1>Login</h1>
+  <h2>Server form</h2>
+  <form method="POST" data-astro-reload>
+    <label>
+      Email:
+      <input type="email" name="email" value="test@email.com" />
+    </label>
+    {errors.email && <p>{errors.email}</p>}
+    <label>
+      Password:
+      <input type="password" name="password" value="password" />
+    </label>
+    {errors.password && <p>{errors.password}</p>}
+
+    <Button type="submit">Login</Button>
+    {errors.api && <p>{errors.api}</p>}
+  </form>
+  <h2>Client form</h2>
+  <LoginForm redirectTo={redirectTo} client:load />
+</AuthLayout>
