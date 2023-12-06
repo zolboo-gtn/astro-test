@@ -1,66 +1,67 @@
 ---
-import { safeParse } from "valibot";
+// import { safeParse } from "valibot";
 
 import { LoginForm } from "@/components/LoginForm";
 import AuthLayout from "@/layouts/AuthLayout.astro";
-import type { LoginApiError } from "@/pages/api/login";
-import { LoginSchema } from "@/schemas/login";
-import { Button } from "@/ui/button";
+// import type { LoginApiError } from "@/pages/api/login";
+// import { LoginSchema } from "@/schemas/login";
+// import { Button } from "@/ui/button";
 
 const redirectTo = Astro.url.searchParams.get("redirectTo");
-const errors: Partial<LoginApiError> = {};
-if (Astro.request.method === "POST") {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+// const errors: Partial<LoginApiError> = {};
+// if (Astro.request.method === "POST") {
+//   try {
+//     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const data = await Astro.request.formData();
-    const validation = safeParse(LoginSchema, Object.fromEntries(data));
+//     const data = await Astro.request.formData();
+//     const validation = safeParse(LoginSchema, Object.fromEntries(data));
 
-    if (validation.success) {
-      Astro.cookies.set("session", "session", {
-        httpOnly: true,
-        maxAge: 3600,
-        sameSite: true,
-        secure: true,
-      });
-      return Astro.redirect(redirectTo ?? "/");
-    }
+//     if (validation.success) {
+//       Astro.cookies.set("session", "session", {
+//         httpOnly: true,
+//         maxAge: 3600,
+//         sameSite: true,
+//         secure: true,
+//       });
+//       return Astro.redirect(redirectTo ?? "/");
+//     }
 
-    for (const issue of validation.issues) {
-      const paths = issue.path?.map(({ key }) => key);
-      if (paths?.includes("email")) {
-        errors.email = issue.message;
-      }
-      if (paths?.includes("password")) {
-        errors.password = issue.message;
-      }
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-  }
-}
+//     for (const issue of validation.issues) {
+//       const paths = issue.path?.map(({ key }) => key);
+//       if (paths?.includes("email")) {
+//         errors.email = issue.message;
+//       }
+//       if (paths?.includes("password")) {
+//         errors.password = issue.message;
+//       }
+//     }
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       console.error(error.message);
+//     }
+//   }
+// }
 ---
 
 <AuthLayout title="Home page">
-  <h1>Login</h1>
-  <h2>Server form</h2>
-  <form method="POST" data-astro-reload>
-    <label>
-      Email:
-      <input type="email" name="email" value="test@email.com" />
-    </label>
-    {errors.email && <p>{errors.email}</p>}
-    <label>
-      Password:
-      <input type="password" name="password" value="password" />
-    </label>
-    {errors.password && <p>{errors.password}</p>}
-
-    <Button type="submit">Login</Button>
-    {errors.api && <p>{errors.api}</p>}
-  </form>
-  <h2>Client form</h2>
-  <LoginForm redirectTo={redirectTo} client:load />
+  <div class="flex flex-col gap-y-5">
+    <h1 class="text-2xl">Login</h1>
+    <!-- <h2>Server form</h2>
+    <form method="POST" data-astro-reload>
+      <label>
+        Email:
+        <input type="email" name="email" value="test@email.com" />
+      </label>
+      {errors.email && <p>{errors.email}</p>}
+      <label>
+        Password:
+        <input type="password" name="password" value="password" />
+      </label>
+      {errors.password && <p>{errors.password}</p>}
+  
+      <Button type="submit">Login</Button>
+      {errors.api && <p>{errors.api}</p>}
+    </form> -->
+    <LoginForm redirectTo={redirectTo} client:load />
+  </div>
 </AuthLayout>
