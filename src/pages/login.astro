@@ -9,11 +9,12 @@ const redirectTo = Astro.url.searchParams.get("redirectTo");
 const errors: Partial<LoginApiError> = {};
 if (Astro.request.method === "POST") {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
     const data = await Astro.request.formData();
     const validation = safeParse(LoginSchema, Object.fromEntries(data));
 
     if (validation.success) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       Astro.cookies.set("session", "session", {
         httpOnly: true,
         maxAge: 3600,

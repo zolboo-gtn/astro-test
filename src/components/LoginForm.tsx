@@ -16,7 +16,6 @@ export const LoginForm: React.FC<Props> = ({ redirectTo }) => {
 
     try {
       setIsPending(true);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       const formData = new FormData(event.target as HTMLFormElement);
       const response = await fetch("/api_login", {
         method: "POST",
@@ -26,7 +25,6 @@ export const LoginForm: React.FC<Props> = ({ redirectTo }) => {
       if (response.ok) {
         return navigate(redirectTo ?? "/");
       }
-
       const errors = await response.json();
       setApiErrors(errors);
     } catch (error) {

@@ -10,8 +10,10 @@ export type LoginApiError = {
   email?: string;
   password?: string;
 };
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ cookies, redirect, request }) => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+
     const data = await request.formData();
     const validation = safeParse(LoginSchema, Object.fromEntries(data));
     if (!validation.success) {
@@ -29,12 +31,14 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify(errors), { status: 400 });
     }
 
-    return new Response(
-      JSON.stringify({
-        message: "Success!",
-      }),
-      { status: 200 }
-    );
+    cookies.set("session", "session", {
+      httpOnly: true,
+      maxAge: 3600,
+      sameSite: true,
+      secure: true,
+    });
+
+    return new Response(null, { status: 200 });
   } catch (error) {
     return new Response(
       JSON.stringify({

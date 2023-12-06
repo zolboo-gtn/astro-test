@@ -1,5 +1,6 @@
 ---
-import Logout from "./Logout.astro";
+import { LogoutForm } from "./LogoutForm";
+
 interface Props {
   title: string;
 }
@@ -12,5 +13,5 @@ const { title } = Astro.props;
   transition:animate="none"
 >
   {title}
-  <Logout />
+  <LogoutForm client:load />
 </header>
