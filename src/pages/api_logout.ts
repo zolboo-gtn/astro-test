@@ -3,9 +3,9 @@
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ cookies, redirect }) => {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 2500));
 
   cookies.delete("session");
 
-  return redirect("/login", 307);
+  return new Response(null, { status: 200 });
 };
