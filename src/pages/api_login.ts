@@ -10,7 +10,7 @@ export type LoginApiError = {
   email?: string;
   password?: string;
 };
-export const POST: APIRoute = async ({ cookies, redirect, request }) => {
+export const POST: APIRoute = async ({ cookies, request }) => {
   try {
     await new Promise((resolve) => setTimeout(resolve, 500));
 

@@ -1,0 +1,18 @@
+---
+import ProductImage from "@/components/ProductImage.astro";
+import type { ProductSchema } from "@/schemas/product";
+
+export interface Props {
+  data: ProductSchema;
+}
+
+const { id, title, description, price, thumbnail } = Astro.props.data;
+---
+
+<a href=`/products/${id}` class="group">
+  <div class="aspect-square w-full rounded-lg">
+    <ProductImage description={description} id={id} thumbnail={thumbnail} />
+  </div>
+  <h3 class="mt-4 text-sm text-gray-700">{title}</h3>
+  <p class="mt-1 text-lg font-medium text-gray-900">${price}</p>
+</a>

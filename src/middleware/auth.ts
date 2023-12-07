@@ -17,7 +17,7 @@ const authRoutesGuard = (context: APIContext) => {
   }
 };
 
-const PUBLIC_ROUTES: (string | RegExp)[] = [];
+const PUBLIC_ROUTES: (string | RegExp)[] = [/^\/products.*$/];
 const protectedRoutesGuard = (context: APIContext) => {
   const { pathname } = context.url;
   const isProtectedRoute = ![...AUTH_ROUTES, ...PUBLIC_ROUTES].some((route) => {

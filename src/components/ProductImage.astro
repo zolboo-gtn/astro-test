@@ -1,0 +1,16 @@
+---
+interface Props {
+  description: string;
+  id: string;
+  thumbnail: string;
+}
+
+const { description, id, thumbnail } = Astro.props;
+---
+
+<img
+  src={thumbnail}
+  alt={description}
+  class="h-full w-full object-cover object-center rounded-lg"
+  transition:name=`product-image-${id}`
+/>

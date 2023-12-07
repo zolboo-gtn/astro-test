@@ -1,14 +1,11 @@
 import { navigate } from "astro:transitions/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { FormEvent } from "react";
 
 import { Button } from "@/ui/button";
 
 export const LogoutForm: React.FC = () => {
   const [isPending, setIsPending] = useState(false);
-  useEffect(() => {
-    console.log({ isPending });
-  }, [isPending]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,7 +29,9 @@ export const LogoutForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} data-astro-reload>
-      <Button type="submit">{isPending ? "Logging out" : "Logout"}</Button>
+      <Button type="submit" disabled={isPending}>
+        {isPending ? "Logging out" : "Logout"}
+      </Button>
     </form>
   );
 };

@@ -1,0 +1,25 @@
+---
+import Product from "@/components/Product.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getProducts } from "@/services/products";
+
+const response = await getProducts();
+
+const { products } = response;
+---
+
+<MainLayout title="Products page">
+  <ul
+    class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+  >
+    {
+      products.map((product) => {
+        return (
+          <li>
+            <Product data={product} />
+          </li>
+        );
+      })
+    }
+  </ul>
+</MainLayout>
